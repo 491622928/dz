@@ -11,13 +11,13 @@ public interface UserMapper {
 
     List<User> getUser();
 
-//    User findUser();
-//
-//    void addUser(User user);
-//
-//    void updUser(User user);
-//
-//    void delUser(Integer id);
+    User findUser(User user);
+
+    void addUser(User user);
+
+    void updUser(User user);
+
+    void delUser(Integer use_id);
 
 
 }

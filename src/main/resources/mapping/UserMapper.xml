@@ -7,33 +7,44 @@
     <select id="getUser"  resultType="com.example.demo.model.User">
         select * from sys_use
     </select>
-    <!--<select id="findUser" parameterType="com.example.demo.model.User" resultType="com.example.demo.model.User">-->
-        <!--select *from sys_use-->
-        <!--where 1=1-->
-        <!--<if test="use_id!='' and use_id!=null">and use_id=#{use_id} </if>-->
-        <!--<if test="use_nam!='' and use_nam!=null">and use_nam=#{use_nam} </if>-->
-        <!--<if test="use_idc!='' and use_idc!=null">and use_idc=#{use_idc} </if>-->
-        <!--<if test="use_sex!='' and use_sex!=null">and use_sex=#{use_sex} </if>-->
-    <!--</select>-->
+    <select id="findUser" parameterType="com.example.demo.model.User" resultType="com.example.demo.model.User">
+        select * from sys_use
+        where 1=1
+        <if test="use_id!='' and use_id!=null">and use_id=#{use_id} </if>
+        <if test="use_nam!='' and use_nam!=null">and use_nam=#{use_nam} </if>
+        <if test="use_idc!='' and use_idc!=null">and use_idc=#{use_idc} </if>
+        <if test="use_sex!='' and use_sex!=null">and use_sex=#{use_sex} </if>
+        <if test="use_age!='' and use_age!=null">and use_age=#{use_age} </if>
+    </select>
 
-    <!--<insert id="addUser" parameterType="com.example.demo.model.User" >-->
-        <!--insert into sys_use(use_id,use_nam,use_idc,use_sex,use_age)-->
-        <!--values (use_id=#{use_id},use_nam=#{use_nam},use_idc=#{use_idc},use_sex=#{use_sex},use_age=#{use_age})-->
-    <!--</insert>-->
+    <insert id="addUser" parameterType="com.example.demo.model.User" useGeneratedKeys="true" keyProperty="use_id">
+        insert into sys_use(
+        use_nam,
+        use_idc,
+        use_sex
+        <if test="use_age!=null and use_age!=''">,use_age</if>
+        )
+        values(
+        #{use_nam},
+        #{use_idc},
+        #{use_sex}
+        <if test="use_age!=null and use_age!=''">,#{use_age}</if>
+        )
+    </insert>
 
-    <!--<update id="updUser" parameterType="com.example.demo.model.User">-->
-        <!--update sys_use-->
-        <!--<set>-->
-            <!--<if test="use_nam!='' and use_nam!=null">and use_nam=#{use_nam} </if>-->
-            <!--<if test="use_idc!='' and use_idc!=null">and use_idc=#{use_idc} </if>-->
-            <!--<if test="use_sex!='' and use_sex!=null">and use_sex=#{use_sex} </if>-->
-            <!--<if test="use_age!='' and use_age!=null">and use_age=#{use_age} </if>-->
-        <!--</set>-->
-        <!--where use_id=#{use_id}-->
-    <!--</update>-->
+    <update id="updUser" parameterType="com.example.demo.model.User">
+        update sys_use
+        <set>
+            <if test="use_nam!='' and use_nam!=null"> use_nam=#{use_nam}, </if>
+            <if test="use_idc!='' and use_idc!=null"> use_idc=#{use_idc}, </if>
+            <if test="use_sex!='' and use_sex!=null"> use_sex=#{use_sex}, </if>
+            <if test="use_age!='' and use_age!=null"> use_age=#{use_age}, </if>
+        </set>
+        where use_id=#{use_id}
+    </update>
 
-    <!--<delete id="delUser" parameterType="int" >-->
-        <!--delete from sys_use where use_id=#{use_id}-->
-    <!--</delete>-->
+    <delete id="delUser" parameterType="int" >
+        delete from sys_use where use_id=#{use_id}
+    </delete>
 
 </mapper>
