@@ -75,10 +75,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delUser(Integer use_id) {
-        User user=new User();
-        user.setUse_id(use_id);
-        list=userMapper.findUser(user);
-        if()
         if (use_id==null||use_id.equals("")){
             throw new ExceptionUtil(104,"id不能为空");
         }else{
