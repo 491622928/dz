@@ -9,11 +9,13 @@ public interface UserService {
 
     List<User> getUser(int pageNum, int pageSize);
 
-    User findUser(User user);
+    User findUser(User user)throws Exception;
 
     void addUser(User user);
 
     void updUser(User user);
 
     void delUser(Integer use_id);
+
+
 }

@@ -20,4 +20,6 @@ public interface UserMapper {
     void delUser(Integer use_id);
 
 
+
+
 }

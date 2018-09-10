@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Result;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
+import com.example.demo.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,28 +19,31 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(value = "/getUser")
-    public List<User> getUser(Integer pageNum,Integer pageSize)throws RuntimeException{
-        return userService.getUser(pageNum,pageSize);
+    public Result<User> getUser(Integer pageNum, Integer pageSize){
+        return ResultUtil.success(userService.getUser(pageNum,pageSize));
     }
 
     @PostMapping(value = "/findUser")
-    public User findUser(User user){
-        return userService.findUser(user);
+    public Result<User> findUser(User user)throws Exception{
+        return ResultUtil.success(userService.findUser(user));
     }
 
     @PostMapping(value ="/addUser")
-    public void addUser(User user)throws RuntimeException{
+    public Result<User> addUser(User user)throws RuntimeException{
         userService.addUser(user);
+        return ResultUtil.success(null);
     }
 
     @PostMapping(value = "/updUser")
-    public  void  updUser(User user)throws RuntimeException{
+    public  Result<User>  updUser(User user)throws RuntimeException{
         userService.updUser(user);
+        return ResultUtil.success(null);
     }
 
     @PostMapping(value = "/delUser")
-    public  void delUser(Integer use_id){
+    public  Result<User> delUser(Integer use_id){
         userService.delUser(use_id);
+        return ResultUtil.success(null);
     }
 
     

@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 
 public class User {
-    private String use_id;
+    private Integer use_id;
     private String use_nam;
     private String use_idc;
     private String use_sex;
@@ -19,11 +19,11 @@ public class User {
                 '}';
     }
 
-    public String getUse_id() {
+    public Integer getUse_id() {
         return use_id;
     }
 
-    public void setUse_id(String use_id) {
+    public void setUse_id(Integer use_id) {
         this.use_id = use_id;
     }
 
