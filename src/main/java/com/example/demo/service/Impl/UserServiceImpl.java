@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 @Service(value = "userService")
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         }
         if (flag==true) {
             System.out.println(1);
-            throw new ExceptionUtil(100,"没有参数");
+            throw new ExceptionUtil(000,"没有参数");
         }else{
             return userMapper.findUser(user);
         }
@@ -53,22 +54,40 @@ public class UserServiceImpl implements UserService {
            throw new ExceptionUtil(102,"身份证不能为空");
         }else if(user.getUse_sex()==null||user.getUse_sex().length()<0){
             throw new ExceptionUtil(103,"性别不能为空");
+        }else if(user.getUse_age()==null||user.getUse_age().equals("")){
+            throw new ExceptionUtil(104,"年龄不能为空");
+        }else if(user.getUse_tel()==null||user.getUse_tel().length()<0){
+            throw new ExceptionUtil(105,"电话不能为空");
+        }else if(user.getUse_use()==null||user.getUse_use().length()<0){
+            throw new ExceptionUtil(106,"账号不能为空");
+        }else if(user.getUse_password()==null||user.getUse_password().length()<0){
+            throw new ExceptionUtil(107,"密码不能为空");
         }else{
-           userMapper.addUser(user);
+            user.setUse_cre_tim(new Date());
+            userMapper.addUser(user);
         }
     }
 
     @Override
     public void updUser(User user) {
         if(user.getUse_id()==null||user.getUse_id().equals("")){
-            throw new ExceptionUtil(101,"id不能为空");
+            throw new ExceptionUtil(100,"id不能为空");
         }if(user.getUse_nam()==null||user.getUse_nam().length()<0){
-            throw new ExceptionUtil(102,"姓名不能为空");
+            throw new ExceptionUtil(101,"姓名不能为空");
         }else if(user.getUse_idc()==null||user.getUse_idc().length()<0){
-            throw new ExceptionUtil(103,"身份证不能为空");
+            throw new ExceptionUtil(102,"身份证不能为空");
         }else if(user.getUse_sex()==null||user.getUse_sex().length()<0){
-            throw new ExceptionUtil(104,"性别不能为空");
+            throw new ExceptionUtil(103,"性别不能为空");
+        }else if(user.getUse_age()==null||user.getUse_age().equals("")){
+            throw new ExceptionUtil(104,"年龄不能为空");
+        }else if(user.getUse_tel()==null||user.getUse_tel().length()<0){
+            throw new ExceptionUtil(105,"电话不能为空");
+        }else if(user.getUse_use()==null||user.getUse_use().length()<0){
+            throw new ExceptionUtil(106,"账号不能为空");
+        }else if(user.getUse_password()==null||user.getUse_password().length()<0){
+            throw new ExceptionUtil(107,"密码不能为空");
         }else{
+            user.setUse_upd_tim(new Date());
             userMapper.updUser(user);
         }
     }
@@ -76,7 +95,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delUser(Integer use_id) {
         if (use_id==null||use_id.equals("")){
-            throw new ExceptionUtil(104,"id不能为空");
+            throw new ExceptionUtil(100,"id不能为空");
         }else{
             userMapper.delUser(use_id);
         }

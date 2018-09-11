@@ -9,36 +9,49 @@
     </select>
     <select id="findUser" parameterType="com.example.demo.model.User" resultType="com.example.demo.model.User">
         select * from sys_use
-        where 1=1
-        <if test="use_id!='' and use_id!=null">and use_id=#{use_id} </if>
-        <if test="use_nam!='' and use_nam!=null">and use_nam=#{use_nam} </if>
-        <if test="use_idc!='' and use_idc!=null">and use_idc=#{use_idc} </if>
-        <if test="use_sex!='' and use_sex!=null">and use_sex=#{use_sex} </if>
-        <if test="use_age!='' and use_age!=null">and use_age=#{use_age} </if>
+        <where>
+            <if test="use_id!='' and use_id!=null">and use_id=#{use_id} </if>
+            <if test="use_nam!='' and use_nam!=null">and use_nam=#{use_nam} </if>
+            <if test="use_idc!='' and use_idc!=null">and use_idc=#{use_idc} </if>
+            <if test="use_sex!='' and use_sex!=null">and use_sex=#{use_sex} </if>
+            <if test="use_age!='' and use_age!=null">and use_age=#{use_age} </if>
+            <if test="use_tel!='' and use_tel!=null">and use_tel=#{use_tel} </if>
+            <!--<if test="use_use!='' and use_use!=null">and use_use=#{use_use} </if>-->
+            <!--<if test="use_password!='' and use_password!=null">and use_password=#{use_password} </if>-->
+            <if test="use_cre_tim!='' and use_cre_tim!=null">and use_cre_tim=#{use_cre_tim} </if>
+        </where>
+
     </select>
 
     <insert id="addUser" parameterType="com.example.demo.model.User" useGeneratedKeys="true" keyProperty="use_id">
         insert into sys_use(
         use_nam,
         use_idc,
-        use_sex
-        <if test="use_age!=null and use_age!=''">,use_age</if>
-        )
+        use_sex,
+        use_age,
+        use_tel,
+        use_use,
+        use_password,
+        use_cre_tim)
         values(
         #{use_nam},
         #{use_idc},
-        #{use_sex}
-        <if test="use_age!=null and use_age!=''">,#{use_age}</if>
-        )
+        #{use_sex},
+        #{use_age},
+        #{use_tel},
+        #{use_use},
+        #{use_password},
+        #{use_cre_tim})
     </insert>
 
     <update id="updUser" parameterType="com.example.demo.model.User">
         update sys_use
         <set>
-            <if test="use_nam!='' and use_nam!=null"> use_nam=#{use_nam}, </if>
-            <if test="use_idc!='' and use_idc!=null"> use_idc=#{use_idc}, </if>
             <if test="use_sex!='' and use_sex!=null"> use_sex=#{use_sex}, </if>
             <if test="use_age!='' and use_age!=null"> use_age=#{use_age}, </if>
+            <if test="use_tel!='' and use_tel!=null"> use_tel=#{use_tel}, </if>
+            <if test="use_password!='' and use_password!=null"> use_password=#{use_password}, </if>
+            update_tim=#{update_tim}
         </set>
         where use_id=#{use_id}
     </update>
