@@ -17,5 +17,7 @@ public interface UserService {
 
     void delUser(Integer use_id);
 
+    User findUser(String use_use,String use_password)throws Exception;
+
 
 }

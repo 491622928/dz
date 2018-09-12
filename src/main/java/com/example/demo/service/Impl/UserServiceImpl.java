@@ -101,5 +101,19 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User findUser(String use_use, String use_password) throws Exception {
+        if(use_use==null||use_use.isEmpty()){
+            throw new ExceptionUtil(106,"账号不能为空");
+        }else if(use_password==null||use_password.isEmpty()){
+            throw new ExceptionUtil(107,"密码不能为空");
+        }
+        User user=new User();
+        user.setUse_use(use_use);
+        user.setUse_password(use_password);
+        return userMapper.findUser(user);
+
+    }
+
 
 }

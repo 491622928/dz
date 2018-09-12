@@ -15,25 +15,29 @@ spring:
 #      设置重启目录
       additional-paths: src/main/java
 
-  freemarker:
-#    关闭缓存，及时刷新
-    cache: false
-    charset: UTF-8
-    check-template-location: true
-    content-type: text/html
-    expose-request-attributes: true
-    expose-session-attributes: true
-    request-context-attribute: request
-    suffix: .ftl
+#  freemarker:
+##    关闭缓存，及时刷新
+#    cache: false
+#    charset: UTF-8
+#    check-template-location: true
+#    content-type: text/html
+#    expose-request-attributes: true
+#    expose-session-attributes: true
+#    request-context-attribute: request
+#    suffix: .ftl
 
   thymeleaf:
-    prefix: classpath:/temlaates/
     suffix: .html
     mode: HTML5
     encoding: UTF-8
     cache: false
     servlet:
       content-type: text/html
+    prefix: classpath:/templates/
+#    重点没这句加载不到页面
+  mvc:
+    static-path-pattern: /static/**
+
 mybatis:
 #  config-location: classpath:mapping/*.xml
   type-aliases-package: com.example.demo.model
