@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2018-09-07 17:34:16
+Date: 2018-09-13 18:10:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,16 +39,23 @@ CREATE TABLE `sys_file` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `menu_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(255) DEFAULT NULL,
   `menu_url` varchar(255) DEFAULT NULL,
-  `menu_code` varchar(255) DEFAULT NULL COMMENT '标识',
+  `menu_father` int(11) DEFAULT NULL COMMENT '父类',
+  `menu_level` int(11) DEFAULT NULL COMMENT '标识',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
+INSERT INTO `sys_menu` VALUES ('1', '房屋信息', 'templates/room', '0', '0');
+INSERT INTO `sys_menu` VALUES ('2', '订单信息', 'templates/order', '0', '0');
+INSERT INTO `sys_menu` VALUES ('3', '后台管理', 'templates/admin', '0', '0');
+INSERT INTO `sys_menu` VALUES ('4', '我要看房', 'templates/findRoom', '1', '1');
+INSERT INTO `sys_menu` VALUES ('5', '我要租房', 'templates/publishRoom', '1', '1');
+INSERT INTO `sys_menu` VALUES ('6', '角色管理', 'templates/role', '3', '1');
 
 -- ----------------------------
 -- Table structure for sys_order
@@ -132,23 +139,13 @@ CREATE TABLE `sys_use` (
   `use_tel` varchar(11) DEFAULT NULL,
   `use_use` varchar(255) DEFAULT NULL COMMENT '账号',
   `use_password` varchar(255) DEFAULT NULL,
-  `use_cre_tim` date DEFAULT NULL,
-  `use_order` varchar(255) DEFAULT NULL COMMENT '订单',
+  `use_cre_tim` datetime DEFAULT NULL,
+  `use_upd_tim` datetime DEFAULT NULL,
   PRIMARY KEY (`use_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_use
 -- ----------------------------
-INSERT INTO `sys_use` VALUES ('1', '赵', '13214569', '1', '12', null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('2', '李四', '321654', '2', '21', null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('3', '王五', '456644', '2', '54', null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('4', '赵', '13214569', '1', null, null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('5', '李四', null, null, null, null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('6', '李四', null, null, null, null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('7', '李四', null, null, null, null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('8', '李四', null, null, null, null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('9', '李四', null, null, null, null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('10', '李四', null, null, null, null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('11', '李四', null, null, null, null, null, null, null, null);
-INSERT INTO `sys_use` VALUES ('12', '李四', null, null, null, null, null, null, null, null);
+INSERT INTO `sys_use` VALUES ('18', 'yyz', '132456', '1', '1', '123456', 'admin', '123456', '2018-09-12 17:04:08', null);
+INSERT INTO `sys_use` VALUES ('123', '123', '3', '123321', '321', '321', null, null, null, null);
