@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <meta xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  />
-    <title>主页</title>
-    <link th:href="@{static/js/layui/css/layui.css}" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="static/js/layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">layui 后台布局</div>
+        <div class="layui-logo">短租房</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
@@ -75,13 +76,13 @@
         © layui.com - 底部固定区域
     </div>
 </div>
-<script th:src="@{static/js/layui/layui.all.js}"></script>
+<script src="static/js/layui/layui.js"></script>
 <script>
-    // //JavaScript代码区域
-    // layui.use('element', function(){
-    //     var element = layui.element;
-    //
-    // });
+    //JavaScript代码区域
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
 </script>
 </body>
 </html>

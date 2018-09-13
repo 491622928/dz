@@ -44,5 +44,10 @@ public class UserController {
         return ResultUtil.success(null);
     }
 
+    @PostMapping(value = "login")
+    public Result<User> login(String use_use, String use_password)throws Exception {
+        return ResultUtil.success(userService.findUser(use_use,use_password));
+
+    }
 
 }

@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> getUser(int pageNum, int pageSize) {
+    public List<User> getUser(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);/* pageNum 开始页数 pageSize 每页显示的数据条数*/
         return userMapper.getUser();
     }
@@ -111,7 +111,12 @@ public class UserServiceImpl implements UserService {
         User user=new User();
         user.setUse_use(use_use);
         user.setUse_password(use_password);
-        return userMapper.findUser(user);
+        if(userMapper.findUser(user)==null){
+            throw new ExceptionUtil(108,"账号或密码错误");
+        }else{
+            return userMapper.findUser(user);
+        }
+
 
     }
 

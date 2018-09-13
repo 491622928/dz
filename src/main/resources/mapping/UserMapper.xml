@@ -16,8 +16,8 @@
             <if test="use_sex!='' and use_sex!=null">and use_sex=#{use_sex} </if>
             <if test="use_age!='' and use_age!=null">and use_age=#{use_age} </if>
             <if test="use_tel!='' and use_tel!=null">and use_tel=#{use_tel} </if>
-            <!--<if test="use_use!='' and use_use!=null">and use_use=#{use_use} </if>-->
-            <!--<if test="use_password!='' and use_password!=null">and use_password=#{use_password} </if>-->
+            <if test="use_use!='' and use_use!=null">and use_use=#{use_use} </if>
+            <if test="use_password!='' and use_password!=null">and use_password=#{use_password} </if>
             <if test="use_cre_tim!='' and use_cre_tim!=null">and use_cre_tim=#{use_cre_tim} </if>
         </where>
 

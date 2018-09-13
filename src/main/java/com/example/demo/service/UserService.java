@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserService {
 
 
-    List<User> getUser(int pageNum, int pageSize);
+    List<User> getUser(Integer pageNum, Integer pageSize);
 
     User findUser(User user)throws Exception;
 
