@@ -11,8 +11,8 @@
     <div class="layui-header">
         <div class="layui-logo">短租房</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
+        <ul id="li1" class="layui-nav layui-layout-left">
+            <li class="layui-nav-item" ><a href="">控制台</a></li>
             <li class="layui-nav-item"><a href="">商品管理</a></li>
             <li class="layui-nav-item"><a href="">用户</a></li>
             <li class="layui-nav-item">
@@ -42,7 +42,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul id="leftmenu" class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">所有商品</a>
                     <dl class="layui-nav-child">
@@ -76,13 +76,62 @@
         © layui.com - 底部固定区域
     </div>
 </div>
-<script src="static/js/layui/layui.js"></script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="static/js/layui/layui.all.js"></script>
+<script src="../static/js/jsall.js"></script>
 <script>
-    //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
+    $(function(){
+        $.ajax({
+            url: url + "menu/getMenu",
+            data: "menu_father=0&menu_leven=0",
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                if (data.code == "200") {
+                    var htmls="";
+                    if(data.data!=null){
+                        var datas=data.data;
+                        for(i=0;i<datas.length;i++){
+                            htmls+="<li class=\"layui-nav-item\"  onclick=\"leftmenu("+datas[i].menu_id+")\"><a href=\"\">"+datas[i].menu_name+"</a></li>";
+                        }
+                        $("#li1").html(htmls);
+                    }
+                }else {
+                    layer.alert(data.msg);
+                }
+            }
+        })
+        leftmenu(1);
+    })
 
-    });
+
+    function leftmenu(id){
+        $.ajax({
+            url: url + "menu/getMenu",
+            data: "menu_father="+id+"&menu_leven=1",
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                if (data.code == "200") {
+                    var htmls="";
+                    if(data.data!=null){
+                        var datas=data.data;
+                        for(i=0;i<datas.length;i++){
+                            htmls+="<li class=\"layui-nav-item\"><a href=\"\">"+datas[i].menu_name+"</a></li>";
+                        }
+                        $("#leftmenu").html(htmls);
+                    }
+                }else {
+                    layer.alert(data.msg);
+                }
+            }
+        })
+    }
+    //JavaScript代码区域
+    // layui.use('element', function(){
+    //     var element = layui.element;
+    // });
+
 </script>
 </body>
 </html>
