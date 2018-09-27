@@ -1,112 +1,115 @@
 package com.example.demo.model;
 
-
-import com.fasterxml.jackson.annotation.JacksonInject;
-
 import java.util.Date;
 
 public class User {
-    private Integer use_id;
-    private String use_nam;
-    private String use_idc;
-    private String use_sex;
-    private Integer use_age;
-    private String use_tel;
-    private String use_use;
-    @JacksonInject
-    private String use_password;
-    private Date use_cre_tim;
-    private Date use_upd_tim;
+    private Integer userId;
 
+    private String userName;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "use_id='" + use_id + '\'' +
-                ", use_nam='" + use_nam + '\'' +
-                ", use_idc='" + use_idc + '\'' +
-                ", use_sex='" + use_sex + '\'' +
-                ", use_age=" + use_age +
-                '}';
+    private String userIdc;
+
+    private Integer userSex;
+
+    private String userAge;
+
+    private String userTel;
+
+    private String userAccount;
+
+    private String userPassword;
+
+    private Date userCreTim;
+
+    private Date useUpdTim;
+
+    private Integer userRole;
+
+    public Integer getUserId() {
+        return userId;
     }
 
-    public Date getUse_upd_tim() {
-        return use_upd_tim;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public void setUse_upd_tim(Date use_upd_tim) {
-        this.use_upd_tim = use_upd_tim;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getUse_tel() {
-        return use_tel;
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
-    public void setUse_tel(String use_tel) {
-        this.use_tel = use_tel;
+    public String getUserIdc() {
+        return userIdc;
     }
 
-    public String getUse_use() {
-        return use_use;
+    public void setUserIdc(String userIdc) {
+        this.userIdc = userIdc == null ? null : userIdc.trim();
     }
 
-    public void setUse_use(String use_use) {
-        this.use_use = use_use;
+    public Integer getUserSex() {
+        return userSex;
     }
 
-    public String getUse_password() {
-        return use_password;
+    public void setUserSex(Integer userSex) {
+        this.userSex = userSex;
     }
 
-    public void setUse_password(String use_password) {
-        this.use_password = use_password;
+    public String getUserAge() {
+        return userAge;
     }
 
-    public Date getUse_cre_tim() {
-        return use_cre_tim;
+    public void setUserAge(String userAge) {
+        this.userAge = userAge == null ? null : userAge.trim();
     }
 
-    public void setUse_cre_tim(Date use_cre_tim) {
-        this.use_cre_tim = use_cre_tim;
+    public String getUserTel() {
+        return userTel;
     }
 
-    public Integer getUse_id() {
-        return use_id;
+    public void setUserTel(String userTel) {
+        this.userTel = userTel == null ? null : userTel.trim();
     }
 
-    public void setUse_id(Integer use_id) {
-        this.use_id = use_id;
+    public String getUserAccount() {
+        return userAccount;
     }
 
-    public String getUse_nam() {
-        return use_nam;
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount == null ? null : userAccount.trim();
     }
 
-    public void setUse_nam(String use_nam) {
-        this.use_nam = use_nam;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public String getUse_idc() {
-        return use_idc;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
-    public void setUse_idc(String use_idc) {
-        this.use_idc = use_idc;
+    public Date getUserCreTim() {
+        return userCreTim;
     }
 
-    public String getUse_sex() {
-        return use_sex;
+    public void setUserCreTim(Date userCreTim) {
+        this.userCreTim = userCreTim;
     }
 
-    public void setUse_sex(String use_sex) {
-        this.use_sex = use_sex;
+    public Date getUseUpdTim() {
+        return useUpdTim;
     }
 
-    public Integer getUse_age() {
-        return use_age;
+    public void setUseUpdTim(Date useUpdTim) {
+        this.useUpdTim = useUpdTim;
     }
 
-    public void setUse_age(Integer use_age) {
-        this.use_age = use_age;
+    public Integer getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Integer userRole) {
+        this.userRole = userRole;
     }
 }

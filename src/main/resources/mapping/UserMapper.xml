@@ -1,63 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.UserMapper">
-    <select id="getUser"  resultType="com.example.demo.model.User">
-        select * from sys_use
-    </select>
-    <select id="findUser" parameterType="com.example.demo.model.User" resultType="com.example.demo.model.User">
-        select * from sys_use
-        <where>
-            <if test="use_id!='' and use_id!=null">and use_id=#{use_id} </if>
-            <if test="use_nam!='' and use_nam!=null">and use_nam=#{use_nam} </if>
-            <if test="use_idc!='' and use_idc!=null">and use_idc=#{use_idc} </if>
-            <if test="use_sex!='' and use_sex!=null">and use_sex=#{use_sex} </if>
-            <if test="use_age!='' and use_age!=null">and use_age=#{use_age} </if>
-            <if test="use_tel!='' and use_tel!=null">and use_tel=#{use_tel} </if>
-            <if test="use_use!='' and use_use!=null">and use_use=#{use_use} </if>
-            <if test="use_password!='' and use_password!=null">and use_password=#{use_password} </if>
-            <if test="use_cre_tim!='' and use_cre_tim!=null">and use_cre_tim=#{use_cre_tim} </if>
-        </where>
-
-    </select>
-
-    <insert id="addUser" parameterType="com.example.demo.model.User" useGeneratedKeys="true" keyProperty="use_id">
-        insert into sys_use(
-        use_nam,
-        use_idc,
-        use_sex,
-        use_age,
-        use_tel,
-        use_use,
-        use_password,
-        use_cre_tim)
-        values(
-        #{use_nam},
-        #{use_idc},
-        #{use_sex},
-        #{use_age},
-        #{use_tel},
-        #{use_use},
-        #{use_password},
-        #{use_cre_tim})
-    </insert>
-
-    <update id="updUser" parameterType="com.example.demo.model.User">
-        update sys_use
-        <set>
-            <if test="use_sex!='' and use_sex!=null"> use_sex=#{use_sex}, </if>
-            <if test="use_age!='' and use_age!=null"> use_age=#{use_age}, </if>
-            <if test="use_tel!='' and use_tel!=null"> use_tel=#{use_tel}, </if>
-            <if test="use_password!='' and use_password!=null"> use_password=#{use_password}, </if>
-            update_tim=#{update_tim}
-        </set>
-        where use_id=#{use_id}
-    </update>
-
-    <delete id="delUser" parameterType="int" >
-        delete from sys_use where use_id=#{use_id}
-    </delete>
-
+  <resultMap id="BaseResultMap" type="com.example.demo.model.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_idc" jdbcType="VARCHAR" property="userIdc" />
+    <result column="user_sex" jdbcType="INTEGER" property="userSex" />
+    <result column="user_age" jdbcType="VARCHAR" property="userAge" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_cre_tim" jdbcType="TIMESTAMP" property="userCreTim" />
+    <result column="use_upd_tim" jdbcType="TIMESTAMP" property="useUpdTim" />
+    <result column="user_role" jdbcType="INTEGER" property="userRole" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, user_name, user_idc, user_sex, user_age, user_tel, user_account, user_password, 
+    user_cre_tim, use_upd_tim, user_role
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+  </select>
+  <select id="selectOne" parameterType="com.example.demo.model.User" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    <where>
+      <if test="userId != null">
+        AND user_id = #{user_id},
+      </if>
+      <if test="userName != null">
+        AND user_name= #{user_id},
+      </if>
+      <if test="userIdc != null">
+        AND user_idc = #{user_id},
+      </if>
+      <if test="userSex != null">
+        AND user_sex = #{user_id},
+      </if>
+      <if test="userAge != null">
+        AND user_age = #{user_id},
+      </if>
+      <if test="userTel != null">
+        AND user_tel = #{user_id},
+      </if>
+      <if test="userAccount != null">
+        AND user_account = #{user_id},
+      </if>
+      <if test="userPassword != null">
+        AND user_password =#{user_id},
+      </if>
+      <if test="userCreTim != null">
+        AND user_cre_tim = #{user_id},
+      </if>
+      <if test="useUpdTim != null">
+        AND use_upd_tim = #{user_id},
+      </if>
+      <if test="userRole != null">
+        AND user_role = #{user_id},
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.User">
+    insert into sys_user (user_id, user_name, user_idc, 
+      user_sex, user_age, user_tel, 
+      user_account, user_password, user_cre_tim, 
+      use_upd_tim, user_role)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userIdc,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=INTEGER}, #{userAge,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, 
+      #{userAccount,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userCreTim,jdbcType=TIMESTAMP}, 
+      #{useUpdTim,jdbcType=TIMESTAMP}, #{userRole,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.User">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userIdc != null">
+        user_idc,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userAge != null">
+        user_age,
+      </if>
+      <if test="userTel != null">
+        user_tel,
+      </if>
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+      <if test="userCreTim != null">
+        user_cre_tim,
+      </if>
+      <if test="useUpdTim != null">
+        use_upd_tim,
+      </if>
+      <if test="userRole != null">
+        user_role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdc != null">
+        #{userIdc,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userAge != null">
+        #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userCreTim != null">
+        #{userCreTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useUpdTim != null">
+        #{useUpdTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userRole != null">
+        #{userRole,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.User">
+    update sys_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdc != null">
+        user_idc = #{userIdc,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userAge != null">
+        user_age = #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null">
+        user_tel = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userCreTim != null">
+        user_cre_tim = #{userCreTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useUpdTim != null">
+        use_upd_tim = #{useUpdTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userRole != null">
+        user_role = #{userRole,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.User">
+    update sys_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_idc = #{userIdc,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=INTEGER},
+      user_age = #{userAge,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      user_account = #{userAccount,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_cre_tim = #{userCreTim,jdbcType=TIMESTAMP},
+      use_upd_tim = #{useUpdTim,jdbcType=TIMESTAMP},
+      user_role = #{userRole,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
 </mapper>

@@ -2,24 +2,22 @@ package com.example.demo.mapper;
 
 import com.example.demo.model.User;
 
-
 import java.util.List;
 
-
 public interface UserMapper {
+    int deleteByPrimaryKey(Integer userId);
 
+    int insert(User record);
 
-    List<User> getUser();
+    int insertSelective(User record);
 
-    User findUser(User user);
+    User selectByPrimaryKey(Integer userId);
 
-    void addUser(User user);
+    int updateByPrimaryKeySelective(User record);
 
-    void updUser(User user);
+    int updateByPrimaryKey(User record);
 
-    void delUser(Integer use_id);
+    List<User> selectAll();
 
-
-
-
+    User selectOne(User user);
 }

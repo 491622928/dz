@@ -18,9 +18,9 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @PostMapping(value = "/getMenu")
-    public Result<Menu> getMenu(Integer menu_father,Integer menu_level){
-        return  ResultUtil.success(menuService.getMenu(menu_father,menu_level));
-    }
+//    @PostMapping(value = "/getMenu")
+//    public Result<Menu> getMenu(Integer menu_father,Integer menu_level){
+//        return  ResultUtil.success(menuService.getMenu(menu_father,menu_level));
+//    }
 
 }

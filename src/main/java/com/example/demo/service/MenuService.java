@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MenuService {
 
-    List<Menu> getMenu(Integer menu_father, Integer menu_level);
+//    List<Menu> getMenu(Integer menu_father, Integer menu_level);
 }

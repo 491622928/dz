@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.Order">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="order_cre_tim" jdbcType="TIMESTAMP" property="orderCreTim" />
+    <result column="order_sta_tim" jdbcType="DATE" property="orderStaTim" />
+    <result column="order_end_tim" jdbcType="DATE" property="orderEndTim" />
+    <result column="order_rental" jdbcType="INTEGER" property="orderRental" />
+    <result column="order_room" jdbcType="INTEGER" property="orderRoom" />
+    <result column="order_use" jdbcType="INTEGER" property="orderUse" />
+    <result column="order_type" jdbcType="INTEGER" property="orderType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, order_code, order_cre_tim, order_sta_tim, order_end_tim, order_rental, 
+    order_room, order_use, order_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.Order">
+    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_order (order_code, order_cre_tim, order_sta_tim, 
+      order_end_tim, order_rental, order_room, 
+      order_use, order_type)
+    values (#{orderCode,jdbcType=VARCHAR}, #{orderCreTim,jdbcType=TIMESTAMP}, #{orderStaTim,jdbcType=DATE}, 
+      #{orderEndTim,jdbcType=DATE}, #{orderRental,jdbcType=INTEGER}, #{orderRoom,jdbcType=INTEGER}, 
+      #{orderUse,jdbcType=INTEGER}, #{orderType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.Order">
+    <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderCode != null">
+        order_code,
+      </if>
+      <if test="orderCreTim != null">
+        order_cre_tim,
+      </if>
+      <if test="orderStaTim != null">
+        order_sta_tim,
+      </if>
+      <if test="orderEndTim != null">
+        order_end_tim,
+      </if>
+      <if test="orderRental != null">
+        order_rental,
+      </if>
+      <if test="orderRoom != null">
+        order_room,
+      </if>
+      <if test="orderUse != null">
+        order_use,
+      </if>
+      <if test="orderType != null">
+        order_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCreTim != null">
+        #{orderCreTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderStaTim != null">
+        #{orderStaTim,jdbcType=DATE},
+      </if>
+      <if test="orderEndTim != null">
+        #{orderEndTim,jdbcType=DATE},
+      </if>
+      <if test="orderRental != null">
+        #{orderRental,jdbcType=INTEGER},
+      </if>
+      <if test="orderRoom != null">
+        #{orderRoom,jdbcType=INTEGER},
+      </if>
+      <if test="orderUse != null">
+        #{orderUse,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        #{orderType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Order">
+    update sys_order
+    <set>
+      <if test="orderCode != null">
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCreTim != null">
+        order_cre_tim = #{orderCreTim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderStaTim != null">
+        order_sta_tim = #{orderStaTim,jdbcType=DATE},
+      </if>
+      <if test="orderEndTim != null">
+        order_end_tim = #{orderEndTim,jdbcType=DATE},
+      </if>
+      <if test="orderRental != null">
+        order_rental = #{orderRental,jdbcType=INTEGER},
+      </if>
+      <if test="orderRoom != null">
+        order_room = #{orderRoom,jdbcType=INTEGER},
+      </if>
+      <if test="orderUse != null">
+        order_use = #{orderUse,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null">
+        order_type = #{orderType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Order">
+    update sys_order
+    set order_code = #{orderCode,jdbcType=VARCHAR},
+      order_cre_tim = #{orderCreTim,jdbcType=TIMESTAMP},
+      order_sta_tim = #{orderStaTim,jdbcType=DATE},
+      order_end_tim = #{orderEndTim,jdbcType=DATE},
+      order_rental = #{orderRental,jdbcType=INTEGER},
+      order_room = #{orderRoom,jdbcType=INTEGER},
+      order_use = #{orderUse,jdbcType=INTEGER},
+      order_type = #{orderType,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

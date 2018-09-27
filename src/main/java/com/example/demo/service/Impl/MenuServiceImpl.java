@@ -15,11 +15,11 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuMapper menuMapper;
 
-    @Override
-    public List<Menu> getMenu(Integer menu_father, Integer menu_level) {
-        Menu menu=new Menu();
-        menu.setMenu_father(menu_father);
-        menu.setMenu_level(menu_level);
-        return menuMapper.getMenu(menu);
-    }
+//    @Override
+//    public List<Menu> getMenu(Integer menu_father, Integer menu_level) {
+//        Menu menu=new Menu();
+//        menu.setMenu_father(menu_father);
+//        menu.setMenu_level(menu_level);
+//        return menuMapper.getMenu(menu);
+//    }
 }

@@ -21,10 +21,10 @@ public class UserController {
         return ResultUtil.success(userService.getUser(pageNum,pageSize));
     }
 
-    @PostMapping(value = "/findUser")
-    public Result<User> findUser(User user)throws Exception{
-        return ResultUtil.success(userService.findUser(user));
-    }
+//    @PostMapping(value = "/findUser")
+//    public Result<User> findUser(User user)throws Exception{
+//        return ResultUtil.success(userService.findUser(user));
+//    }
 
     @PostMapping(value ="/addUser")
     public Result<User> addUser(User user)throws RuntimeException{
@@ -44,10 +44,10 @@ public class UserController {
         return ResultUtil.success(null);
     }
 
-    @PostMapping(value = "login")
-    public Result<User> login(String use_use, String use_password)throws Exception {
-        return ResultUtil.success(userService.findUser(use_use,use_password));
-
-    }
+//    @PostMapping(value = "login")
+//    public Result<User> login(String use_use, String use_password)throws Exception {
+//        return ResultUtil.success(userService.findUser(use_use,use_password));
+//
+//    }
 
 }

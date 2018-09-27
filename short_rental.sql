@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2018-09-13 18:10:08
+Date: 2018-09-27 17:01:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,13 +20,14 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_file`;
 CREATE TABLE `sys_file` (
-  `file_id` int(11) NOT NULL,
-  `file_nam` varchar(255) DEFAULT NULL,
+  `file_id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(255) DEFAULT NULL,
   `file_url` varchar(255) DEFAULT NULL,
   `file_cre_tim` datetime DEFAULT NULL,
   `file_room` int(11) DEFAULT NULL,
   `file_order` int(11) DEFAULT NULL,
-  `file_use` int(11) DEFAULT NULL,
+  `file_use` int(11) DEFAULT NULL COMMENT '0.文件 1.图片',
+  `file_type` int(11) DEFAULT NULL,
   PRIMARY KEY (`file_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -44,37 +45,55 @@ CREATE TABLE `sys_menu` (
   `menu_url` varchar(255) DEFAULT NULL,
   `menu_father` int(11) DEFAULT NULL COMMENT '父类',
   `menu_level` int(11) DEFAULT NULL COMMENT '标识',
+  `menu_other` varchar(255) DEFAULT NULL COMMENT '权限',
   PRIMARY KEY (`menu_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('1', '房屋信息', 'templates/room', '0', '0');
-INSERT INTO `sys_menu` VALUES ('2', '订单信息', 'templates/order', '0', '0');
-INSERT INTO `sys_menu` VALUES ('3', '后台管理', 'templates/admin', '0', '0');
-INSERT INTO `sys_menu` VALUES ('4', '我要看房', 'templates/findRoom', '1', '1');
-INSERT INTO `sys_menu` VALUES ('5', '我要租房', 'templates/publishRoom', '1', '1');
-INSERT INTO `sys_menu` VALUES ('6', '角色管理', 'templates/role', '3', '1');
+INSERT INTO `sys_menu` VALUES ('1', '房屋信息', 'templates/room', '0', '0', null);
+INSERT INTO `sys_menu` VALUES ('2', '订单信息', 'templates/order', '0', '0', null);
+INSERT INTO `sys_menu` VALUES ('3', '后台管理', 'templates/admin', '0', '0', null);
+INSERT INTO `sys_menu` VALUES ('4', '我要看房', 'templates/findRoom', '1', '1', null);
+INSERT INTO `sys_menu` VALUES ('5', '我要租房', 'templates/publishRoom', '1', '1', null);
+INSERT INTO `sys_menu` VALUES ('6', '角色管理', 'templates/role', '3', '1', null);
 
 -- ----------------------------
 -- Table structure for sys_order
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_order`;
 CREATE TABLE `sys_order` (
-  `order_id` varchar(255) NOT NULL,
+  `order_id` int(255) NOT NULL AUTO_INCREMENT,
+  `order_code` varchar(255) DEFAULT NULL,
   `order_cre_tim` datetime DEFAULT NULL,
   `order_sta_tim` date DEFAULT NULL,
   `order_end_tim` date DEFAULT NULL,
   `order_rental` int(10) DEFAULT NULL COMMENT '租金',
   `order_room` int(11) DEFAULT NULL,
   `order_use` int(11) DEFAULT NULL,
+  `order_type` int(11) DEFAULT NULL COMMENT '0.完成 1.未完成',
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_order
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_role
+-- ----------------------------
+INSERT INTO `sys_role` VALUES ('1', '管理员');
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -90,16 +109,38 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
+INSERT INTO `sys_role_menu` VALUES ('1', '18', '1');
+INSERT INTO `sys_role_menu` VALUES ('2', '18', '2');
+INSERT INTO `sys_role_menu` VALUES ('3', '18', '3');
+INSERT INTO `sys_role_menu` VALUES ('4', '18', '4');
+INSERT INTO `sys_role_menu` VALUES ('5', '18', '5');
+INSERT INTO `sys_role_menu` VALUES ('6', '18', '6');
+
+-- ----------------------------
+-- Table structure for sys_role_user
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_user`;
+CREATE TABLE `sys_role_user` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_role_user
+-- ----------------------------
+INSERT INTO `sys_role_user` VALUES ('1', '18', '1');
 
 -- ----------------------------
 -- Table structure for sys_room
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_room`;
 CREATE TABLE `sys_room` (
-  `room_id` int(11) NOT NULL,
+  `room_id` int(11) NOT NULL AUTO_INCREMENT,
   `room_addr` varchar(255) DEFAULT NULL,
   `room_hold` int(1) DEFAULT NULL COMMENT '0可租， 1在租',
-  `room_use` int(11) DEFAULT NULL,
+  `room_use` int(11) DEFAULT NULL COMMENT '房东',
   PRIMARY KEY (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -108,44 +149,25 @@ CREATE TABLE `sys_room` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sys_type
+-- Table structure for sys_user
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_type`;
-CREATE TABLE `sys_type` (
-  `type_id` int(11) NOT NULL,
-  `type_name` varchar(255) DEFAULT NULL,
-  `type_room` int(11) DEFAULT NULL,
-  `type_menu` int(11) DEFAULT NULL,
-  `type_use` int(11) DEFAULT NULL,
-  `type_file` int(11) DEFAULT NULL,
-  `type_order` int(11) DEFAULT NULL,
-  PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of sys_type
--- ----------------------------
-
--- ----------------------------
--- Table structure for sys_use
--- ----------------------------
-DROP TABLE IF EXISTS `sys_use`;
-CREATE TABLE `sys_use` (
-  `use_id` int(255) NOT NULL AUTO_INCREMENT,
-  `use_nam` varchar(255) DEFAULT NULL COMMENT '身份证号',
-  `use_idc` varchar(18) DEFAULT NULL,
-  `use_sex` int(1) DEFAULT NULL,
-  `use_age` varchar(3) DEFAULT NULL,
-  `use_tel` varchar(11) DEFAULT NULL,
-  `use_use` varchar(255) DEFAULT NULL COMMENT '账号',
-  `use_password` varchar(255) DEFAULT NULL,
-  `use_cre_tim` datetime DEFAULT NULL,
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user` (
+  `user_id` int(255) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_idc` varchar(18) DEFAULT NULL COMMENT '身份证号',
+  `user_sex` int(10) DEFAULT NULL COMMENT '0 女 1 男',
+  `user_age` varchar(3) DEFAULT NULL,
+  `user_tel` varchar(11) DEFAULT NULL,
+  `user_account` varchar(255) DEFAULT NULL COMMENT '账号',
+  `user_password` varchar(255) DEFAULT NULL,
+  `user_cre_tim` datetime DEFAULT NULL,
   `use_upd_tim` datetime DEFAULT NULL,
-  PRIMARY KEY (`use_id`)
+  `user_role` int(10) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of sys_use
+-- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_use` VALUES ('18', 'yyz', '132456', '1', '1', '123456', 'admin', '123456', '2018-09-12 17:04:08', null);
-INSERT INTO `sys_use` VALUES ('123', '123', '3', '123321', '321', '321', null, null, null, null);
+INSERT INTO `sys_user` VALUES ('18', 'yyz', '132456', '1', '1', '123456', 'admin', '123456', '2018-09-12 17:04:08', null, null);

@@ -9,7 +9,7 @@ public interface UserService {
 
     List<User> getUser(Integer pageNum, Integer pageSize);
 
-    User findUser(User user)throws Exception;
+//    User findUser(User user)throws Exception;
 
     void addUser(User user);
 
@@ -17,7 +17,7 @@ public interface UserService {
 
     void delUser(Integer use_id);
 
-    User findUser(String use_use,String use_password)throws Exception;
+//    User findUser(String use_use,String use_password)throws Exception;
 
 
 }

@@ -1,0 +1,76 @@
+package com.example.demo.config;
+
+import com.example.demo.mapper.RoleMapper;
+import com.example.demo.mapper.UserMapper;
+import com.example.demo.model.User;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class MyShiroRealm extends AuthorizingRealm {
+
+    Boolean cachingEnabled=true;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
+
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();
+        User user=new User();
+        user.setUserName(username);
+        Integer userId=userMapper.selectOne(user).getUserId();
+        String role =roleMapper.selectByUser(userId).getRoleName();
+
+//        simpleAuthorInfo.addStringPermission("how_are_you");//给当前用户授权url为hello的权限码
+//        System.out.println("经试验：并不是每次调用接口就会执行，而是调用需要操作码（permission）的接口就会执行");
+
+        Set<String> set = new HashSet<>();
+        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
+        set.add(role);
+        //设置该用户拥有的角色
+        simpleAuthorInfo.setRoles(set);
+        return simpleAuthorInfo;
+    }
+
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(
+            AuthenticationToken authcToken) throws AuthenticationException {
+        //获取基于用户名和密码的令牌
+        //实际上这个authcToken是从LoginController里面currentUser.login(token)传过来的
+        UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+        String account = token.getUsername();
+        User user=new User();
+        User u=new User();
+        u.setUserName(account);
+        user = userMapper.selectOne(u);//根据登陆名account从库中查询user对象
+        if(user==null){throw new AuthenticationException("用户不存在");}
+
+        //进行认证，将正确数据给shiro处理
+        //密码不用自己比对，AuthenticationInfo认证信息对象，一个接口，new他的实现类对象SimpleAuthenticationInfo
+        /*	第一个参数随便放，可以放user对象，程序可在任意位置获取 放入的对象
+         * 第二个参数必须放密码，
+         * 第三个参数放 当前realm的名字，因为可能有多个realm*/
+        AuthenticationInfo authcInfo=new SimpleAuthenticationInfo(user, user.getUserPassword(), this.getName());
+        //AuthenticationInfo authcInfo=new SimpleAuthenticationInfo(user,user.getPassword(),new MySimpleByteSource(account), this.getName());
+
+        //清之前的授权信息
+        super.clearCachedAuthorizationInfo(authcInfo.getPrincipals());
+        SecurityUtils.getSubject().getSession().setAttribute("login", user);
+        return authcInfo;//返回给安全管理器，securityManager，由securityManager比对数据库查询出的密码和页面提交的密码
+        //如果有问题，向上抛异常，一直抛到控制器
+    }
+}
+

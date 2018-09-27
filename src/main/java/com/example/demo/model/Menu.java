@@ -1,62 +1,63 @@
 package com.example.demo.model;
 
 public class Menu {
-    private Integer menu_id;
-    private String menu_name;
-    private String menu_url;
-    private Integer menu_father;
-    private Integer menu_level;
+    private Integer menuId;
 
+    private String menuName;
 
+    private String menuUrl;
 
-    public Integer getMenu_id() {
-        return menu_id;
+    private Integer menuFather;
+
+    private Integer menuLevel;
+
+    private String menuOther;
+
+    public Integer getMenuId() {
+        return menuId;
     }
 
-    public void setMenu_id(Integer menu_id) {
-        this.menu_id = menu_id;
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
     }
 
-    public String getMenu_name() {
-        return menu_name;
+    public String getMenuName() {
+        return menuName;
     }
 
-    public void setMenu_name(String menu_name) {
-        this.menu_name = menu_name;
+    public void setMenuName(String menuName) {
+        this.menuName = menuName == null ? null : menuName.trim();
     }
 
-    public String getMenu_url() {
-        return menu_url;
+    public String getMenuUrl() {
+        return menuUrl;
     }
 
-    public void setMenu_url(String menu_url) {
-        this.menu_url = menu_url;
+    public void setMenuUrl(String menuUrl) {
+        this.menuUrl = menuUrl == null ? null : menuUrl.trim();
     }
 
-    public Integer getMenu_father() {
-        return menu_father;
+    public Integer getMenuFather() {
+        return menuFather;
     }
 
-    public void setMenu_father(Integer menu_father) {
-        this.menu_father = menu_father;
+    public void setMenuFather(Integer menuFather) {
+        this.menuFather = menuFather;
     }
 
-    public Integer getMenu_level() {
-        return menu_level;
+    public Integer getMenuLevel() {
+        return menuLevel;
     }
 
-    public void setMenu_level(Integer menu_level) {
-        this.menu_level = menu_level;
+    public void setMenuLevel(Integer menuLevel) {
+        this.menuLevel = menuLevel;
     }
 
-    @Override
-    public String toString() {
-        return "Menu{" +
-                "menu_id=" + menu_id +
-                ", menu_name='" + menu_name + '\'' +
-                ", menu_url='" + menu_url + '\'' +
-                ", menu_father=" + menu_father +
-                ", menu_level=" + menu_level +
-                '}';
+    public String getMenuOther() {
+        return menuOther;
+    }
+
+    public void setMenuOther(String menuOther) {
+        this.menuOther = menuOther == null ? null : menuOther.trim();
     }
 }
