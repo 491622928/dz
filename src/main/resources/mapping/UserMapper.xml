@@ -35,37 +35,37 @@
     from sys_user
     <where>
       <if test="userId != null">
-        AND user_id = #{user_id},
+        AND user_id = #{userId}
       </if>
       <if test="userName != null">
-        AND user_name= #{user_id},
+        AND user_name= #{userName}
       </if>
       <if test="userIdc != null">
-        AND user_idc = #{user_id},
+        AND user_idc = #{userIdc}
       </if>
       <if test="userSex != null">
-        AND user_sex = #{user_id},
+        AND user_sex = #{userSex}
       </if>
       <if test="userAge != null">
-        AND user_age = #{user_id},
+        AND user_age = #{userAge}
       </if>
       <if test="userTel != null">
-        AND user_tel = #{user_id},
+        AND user_tel = #{userTel}
       </if>
       <if test="userAccount != null">
-        AND user_account = #{user_id},
+        AND user_account = #{userAccount,jdbcType=VARCHAR}
       </if>
       <if test="userPassword != null">
-        AND user_password =#{user_id},
+        AND user_password =#{userPassword}
       </if>
       <if test="userCreTim != null">
-        AND user_cre_tim = #{user_id},
+        AND user_cre_tim = #{userCreTim}
       </if>
       <if test="useUpdTim != null">
-        AND use_upd_tim = #{user_id},
+        AND use_upd_tim = #{useUpdTim}
       </if>
       <if test="userRole != null">
-        AND user_role = #{user_id},
+        AND user_role = #{userRole}
       </if>
     </where>
   </select>

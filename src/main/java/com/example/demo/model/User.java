@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class User {
     private Integer userId;
@@ -24,6 +26,16 @@ public class User {
     private Date useUpdTim;
 
     private Integer userRole;
+
+    Set<Role> roles=new HashSet<>();
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public Integer getUserId() {
         return userId;
